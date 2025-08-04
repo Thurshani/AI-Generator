@@ -1,36 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import assets from "../assets/assets";
+import { AuthContext } from "../../context/AuthContext";
+import { useNavigate ,useLocation} from "react-router-dom";
 
 const LoginPage = () => {
-  const [currentState, setCurrentState] = useState("Sign up");
+  const location = useLocation(); // 👈 get current path
+  const [currentState, setCurrentState] = useState("Login"); // 👈 default to login
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [bio, setBio] = useState("");
   const [isDataSubmitted, setIsDataSubmitted] = useState(false);
 
-  const onSubmitHandler = (event) => {
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const onSubmitHandler = async (event) => {
     event.preventDefault();
 
-    if (currentState === "Sign up") {
-      if (!isDataSubmitted) {
-        // Step 1: Proceed to Step 2 (Bio)
-        setIsDataSubmitted(true);
-      } else {
-        // Step 2: Final Submission
-        console.log("Sign up Data:", { fullName, email, password, bio });
-        alert("Account created successfully!");
-        // Reset form (optional)
-        setFullName("");
-        setEmail("");
-        setPassword("");
-        setBio("");
-        setIsDataSubmitted(false);
-      }
-    } else {
-      // Login
-      console.log("Login Data:", { email, password });
-      alert("Login submitted!");
+    if (currentState === "Sign up" && !isDataSubmitted) {
+      setIsDataSubmitted(true);
+      return;
+    }
+
+    // Await login/signup result (make sure login() returns true/false)
+    const success = await login(
+      currentState === "Sign up" ? "signup" : "login",
+      { fullName, email, password, bio }
+    );
+
+    if (success) {
+      navigate("/"); // Navigate to homepage on successful signup/login
     }
   };
 
