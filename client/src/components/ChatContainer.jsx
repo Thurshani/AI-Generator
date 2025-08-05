@@ -58,7 +58,7 @@ const ChatContainer = () => {
         <img
           src={selectedUser.profilePic || assets.avatar_icon}
           alt="profile"
-          className="w-8 rounded-full"
+          className="w-8 h-8 rounded-full object-cover"
         />
         <p className="flex-1 text-lg text-white flex items-center gap-2">
           {selectedUser.fullName}

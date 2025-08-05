@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
-import HomePage from "./pages/Homepage";
+import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import bgImage from "./assets/bgImage.svg"; // or try with img1.jpg to test
 import { Toaster } from "react-hot-toast";
