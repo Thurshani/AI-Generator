@@ -1,1 +1,1 @@
-# AI-Generator
+# Chat-app
